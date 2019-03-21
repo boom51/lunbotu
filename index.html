@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #dv{
+        margin-top: 20px;
+        background-color: red;
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        left:20px;
+    }
+    
+    </style>
+</head>
+<body>
+    <button type="button" id="btn1">移动到400</button>
+    <button type="button" id="btn2">移动到800</button>
+    <div id="dv"></div>
+    <script>
+        document.getElementById("btn1").onclick=function(){
+            animate(document.getElementById("dv"),400);}
+            document.getElementById("btn2").onclick=function(){
+            animate(document.getElementById("dv"),800);}
+        function animate(element,target){
+            clearInterval(element.timeId);
+            element.timeId=setInterval(function(){
+                var current=element.offsetLeft;
+                var step=9;
+                step=current<target?step:-step;
+                current+=step;
+                if(Math.abs(target-current)>Math.abs(step)){
+                    element.style.left=current+"px";
+                }else{
+                   clearInterval(element.timeId);
+                    element.style.left=target+"px";
+                }
+
+            },20);
+        }
+
+    // document.getElementById("btn1").onclick=function(){
+    //     var timeId=setInterval(function(){
+    //         var current=document.getElementById("dv").offsetLeft;
+    //         var step=10;
+    //         current+=step;
+    //         if(current<=400){
+    //         document.getElementById("dv").style.left=current+"px";
+    //      }else{
+    //          clearInterval(timeId);
+    //      }
+    //     },20);
+    // }
+    </script>
+</body>
+</html>

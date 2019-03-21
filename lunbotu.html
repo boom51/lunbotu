@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lunbotu.css">
+</head>
+<body>
+    <div id="container">
+        <div id="lb">
+            <img src="xs1.PNG" alt="">
+            <img src="xs2.PNG" alt="">
+            <img src="xs3.PNG" alt="">
+            <img src="xs4.PNG" alt="">
+        </div>
+        <div id="buttons">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+        </div>
+        <div id="lr">
+              <a id="left">&lt;</a>
+              <a id="right">&gt;</a>
+        </div>
+       
+
+
+    </div>
+
+    <script>
+         var box=document.getElementById("container");
+        var spanObj=box.children[1].children;
+        var width=box.offsetWidth;
+        var inner=box.children[0];
+        var left=document.getElementById("left");
+        var right=document.getElementById("right");
+        var lr=document.getElementById("lr");
+       
+        box.onmouseover=function(){
+            lr.style.display="block";
+        }
+        box.onmouseout=function(){
+            lr.style.display="none";
+        }
+        var index=0;
+        left.onclick=function(){
+            if(index>0){
+                index--;
+                animate(inner,-index*width);
+            }
+        }
+        
+       right.onclick=function(){
+            if(index<3){
+                index++;
+                animate(inner,-index*width);
+            }
+            
+        };
+    //获取最外面的div
+    
+    //获得相框
+    
+    
+    
+    
+    console.log(spanObj);
+    for(var i=0;i<spanObj.length;i++){
+        spanObj[i].setAttribute("index",i);
+        spanObj[i].onmouseover=function(){
+            var index=this.getAttribute("index");
+            animate(inner,-index*width);
+        };
+    }
+
+    function animate(element,target){
+            clearInterval(element.timeId);//清理定时器
+            element.timeId=setInterval(function(){
+                var current=element.offsetLeft;
+                var step=9;
+                step=current<target?step:-step;
+                current+=step;
+                if(Math.abs(target-current)>Math.abs(step)){
+                    element.style.left=current+"px";
+                }else{
+                   clearInterval(element.timeId);//清理定时器
+                    element.style.left=target+"px";
+                }
+
+            },10);
+        }
+    </script>
+</body>
+</html>
